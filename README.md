@@ -6,7 +6,7 @@ A differential drive mouse droid, from the Star Wars universe, that was design f
 </p>
 
 ## 🗃️ Package Overview
-- [`droid_server_commands`]
-- [`droid_controller`]
-- [`droid_interfaces`]
+- [`droid_server_commands`](./droid_setup/ros2_ws/src/droid_server_commands/) : Contains action server nodes for handling controller input
+- [`droid_controller`](./remote_setup/ros2_ws/src/droid_controller/) : Contains action client node that casts the inputs for the Xbox 360 controller
+- [`droid_interfaces`](./remote_setup/ros2_ws/src/droid_interfaces/) : Contains the ROS2 actions and messages used in this project representing the data for Xbox 360 controller
 
