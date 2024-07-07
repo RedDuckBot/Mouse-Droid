@@ -5,3 +5,8 @@ A differential drive mouse droid, from the Star Wars universe, that was design f
     <img src=docs/images/mouse_droid_clip.gif width="600">
 </p>
 
+## 🗃️ Package Overview
+- [`droid_server_commands`]
+- [`droid_controller`]
+- [`droid_interfaces`]
+

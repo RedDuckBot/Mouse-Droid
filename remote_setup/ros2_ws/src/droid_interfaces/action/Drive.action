@@ -1,0 +1,11 @@
+#Goal 
+XboxController controller
+bool is_sound_command
+bool is_disco_command
+bool is_rotate_command
+bool is_joy_command #Joy sticks
+---
+#Result
+string reached_command
+---
+#Feedback
