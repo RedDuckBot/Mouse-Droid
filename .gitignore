@@ -1,0 +1,8 @@
+droid_setup/ros2_ws/log/
+droid_setup/ros2_ws/build/
+droid_setup/ros2_ws/install/
+remote_setup/ros2_ws/log/
+remote_setup/ros2_ws/install/
+remote_setup/ros2_ws/build/
+remote_setup/Scripts/
+*.pyc
