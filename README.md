@@ -1,8 +1,11 @@
 # Mouse_Droid
-A differential drive mouse droid, from the Star Wars universe, that was design for entertaining people at a house party. The droid is equiped with a revolving disco ball and can make actual mouse droid sounds heard from the movies. It is manually operated using an Xbox 360 wired controller. Overall, the operations of droid involves a raspberry pi 4B+, utilizing Ubuntu Server 22.04, and the running software application is built on the middleware ROS2 Humble. Majority of the parts are 3D printed and the droid consists of many other basic electronic components.    
+A differential drive mouse droid, from the Star Wars universe, that was design for entertaining people at a house party. The droid is equiped with a revolving disco ball and can make actual mouse droid sounds heard from the movies. It is manually operated using an Xbox 360 wired controller. Overall, the operations of droid involves a raspberry pi 4B+, utilizing Ubuntu Server 22.04, and the running software application is built on the middleware ROS2 Humble. Majority of the parts are 3D printed and the droid consists of many other basic electronic components. Using a PID controller the droid is able to do a 180 degree or complete rotation.    
 
 <p align='center'>
     <img src=docs/images/mouse_droid_clip.gif width="600">
+</p>
+<p align='center'>
+    <img src=docs/images/droid.png width="600">
 </p>
 
 
@@ -13,6 +16,11 @@ A differential drive mouse droid, from the Star Wars universe, that was design f
 
 
 ## 🧰 Hardware
+
+<p align='center'>
+    <img src=docs/images/droid_compartment.png width="600">
+</p>
+
 
 | | Electronic Components |
 | --| --|
@@ -63,7 +71,80 @@ Note: since the disco ball uses a USB connection a portion of the metal connecto
 </p>
 In the above diagram, two power sources are utilized: 3s LIPO battery for powering the sound board and motors, and 5V battery bank for the Raspberry PI and disco circuit.
 
-## Droid Setup and Running it
+## Setup for operating the Droid 
+
+Make sure ROS2 Humble is installed on the Raspberry PI, while the remote computer for controlling the droid does not need to install Humble since in this setup a Docker container is utilized for easy setup.
+Copy the directory [`remote_setup`](./remote_setup/) onto the remote machine, and [`droid_setup`](./droid_setup/) onto the Raspberry PI.
+
+### Remote Setup
+For network communication, this project utilizes Eclipse Cyclone DDS, so before building and running the Docker container, add both the PI's and remote computer's IP addresses to the [`cyclon file`](./remote_setup/cyclonedds.xml). Moreover, this document provides comments for where to place these addresses. 
+
+After modifying the cyclon file, build & run the container:
+
+```
+Scripts/build.bash
+```
+Next, run the container but make sure the Xbox 360 controller is connected.
+
+```
+Scripts/run.bash
+```
+
+Finally, before running the controller node, the ROS2 packages for this setup need to be compiled and installed.
+
+```
+cd ws/
+colcon build
+source install/setup.bash
+ros2 run droid_controller controller
+```
+Expect similar output, after running the controller node: [INFO] [1720638165.505265926] [controller]: Xbox controller node initialized.
+
+
+### Droid Setup
+Make sure the library [pigpio](https://abyz.me.uk/rpi/pigpio/) is installed on the Raspberry PI.
+Given permission issues encountered when trying to run the droid server node on the PI, the work around solution is running this node while logged in as the root user. 
+
+Before compiling and installing the ROS2 packages for this setup, run the following commands:
+```
+source /opt/ros/humble/setup.bash
+export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
+export ROS_DOMAIN_ID=0
+export CYCLONEDDS_URI= ./droid_setup/cyclonedds.xml #Enter the full location of the cyclon DDS file
+```
+
+Then, as done in the remote setup, add the PI's and remote computer's IP addresses to the cyclon file.
+Next, while in the the directory ./droid_setup/ros2_ws, compile the droids ROS2 packages:
+
+```
+colcon build
+source install/setup.bash
+```
+
+Finally, run the droid server node which takes commands from the controller node:
+```
+ros2 run droid_server_commands droid_server
+```
+
+Expect similar output, after running this node: 
+```
+[INFO] [1720639837.026257729] [Droid_Server]: IMU Module Ready
+[INFO] [1720639837.164474318] [Droid_Server]: Sound Module Ready
+[INFO] [1720639837.164727443] [Droid_Server]: Droid servers started
+```
+
+### Xbox 360 Controller Commands
+- Left Joy-stick ---> operates left side motors
+- Right Joy-stick ---> operates right side motors
+- Back button ---> Droid performs an automatic 180 deg rotation
+- Mode button (between back & start buttons) ---> Droid performs an automatic 360 deg rotation
+- X, Y, B, A buttons ---> Perform droid sounds
+- Start button ---> toggles disco ball on and off
+
+The droid sounds are in resources and can be installed to an SD for the sound board. 
 
 
 ## Acknowledgements
+- [IMU Module](https://github.com/CVino/RPi_BNO055)
+- [Motor Wrapper](https://github.com/buildrobotsbetter/rpi4b_gpio-example)
+- [Sound Module](https://github.com/SnijderC/dyplayer)
