@@ -54,14 +54,14 @@ From his project only the following parts are needed, given that the design need
 - 4 x Front_Tire.stl
 
 The parts mentioned above and custom parts made for this project are in the 3D_print_files directory.
-Portions of the chassis where the wheels go were cut out for placing the custom motor mounts, and a 64mm hole was cut out from the droid's roof for dico ball placement. Moreover, the custom disco platforms, made to hold electronic and mechanical components for operating the it, were suspended bellow the droid's roof using hex brass standoffs. [`Images`](./docs/images/) were taken to show assembeled components.  
+Portions of the chassis where the wheels go were cut out for placing the custom motor mounts, and a 64mm hole was cut out from the droid's roof for dico ball placement. Moreover, the custom disco platforms, made to hold electronic and mechanical components for operating it, are suspended bellow the droid's roof using hex brass standoffs. [`Images`](./docs/images/) were taken to show assembeled components.  
 
 ## Circuit Diagrams 
 ### Disco Ball Circuit
 <p align="center">
   <img title='Disco Ball Circuit' src=docs/images/discoBall_circuit.png width="800">
 </p>
-Rotational control for the disco ball was done using a custom circuit, as shown above, involving a 555 timer, 4017 Decade counter, few resistors, capacitor, and an N-mosfet. This circuit generates steps for the stepper motor and was controlled off a pin from the Raspberry Pi that connected to the mosfet; operation can easily be achieved by directly connecting the Pi's pins to the ULN2003 Step board, instead of making and using the custom circuit.
+Rotational control for the disco ball was done using a custom circuit, as shown above, involving a 555 timer, 4017 Decade counter, few resistors, capacitors, and an N-mosfet. This circuit generates steps for the stepper motor and was controlled off a pin from the Raspberry Pi that connected to the mosfet; operation can easily be achieved by directly connecting the Pi's pins to the ULN2003 Step board, instead of making and using the custom circuit.
 Note: since the disco ball uses a USB connection a portion of the metal connector was cut out to expose the Vin and GND pins, which were soldered to the spin wires of the slip ring with the out wires connecting to the mosfet.
 
 
@@ -73,7 +73,7 @@ In the above diagram, two power sources are utilized: 3s LIPO battery for poweri
 
 ## Setup for operating the Droid 
 
-Make sure ROS2 Humble is installed on the Raspberry PI, while the remote computer for controlling the droid does not need to install Humble since in this setup a Docker container is utilized for easy setup.
+The remote computer for controlling the droid does not need to install ROS2 Humble since in this setup a Docker container is utilized (for easy setup), but on the Raspberry PI this needs to be installed.
 Copy the directory [`remote_setup`](./remote_setup/) onto the remote machine, and [`droid_setup`](./droid_setup/) onto the Raspberry PI.
 
 ### Remote Setup
@@ -141,7 +141,7 @@ Expect similar output, after running this node:
 - X, Y, B, A buttons ---> Perform droid sounds
 - Start button ---> toggles disco ball on and off
 
-The droid sounds are in resources and can be installed to an SD for the sound board. 
+The droid sounds are in [`resources`](./resources/) and can be installed to an SD for the sound board. 
 
 
 ## Acknowledgements
