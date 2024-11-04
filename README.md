@@ -29,7 +29,7 @@ A differential drive mouse droid, from the Star Wars universe, that was design f
 |3| Sound Board DY-HV20T |
 |4| 4 Ohm 5W Audio Speaker |
 |5| Motor Controller L298N  |
-|6| 4 x DC-12V-200RPM Motors|
+|6| [4 x DC-12V-200RPM Motors](https://ca.robotshop.com/products/lynxmotion-12vdc-200rpm-078kg-cm-ghm-16-w-rear-shaft?variant=42411388829847)|
 |7| DC 5V Stepper Motor 28BYJ-48 |
 |8| ULN2003 Step Driver Board |
 |9| [12mm (Outside Diameter) Slip Ring](https://www.amazon.ca/dp/B07H2SRMXP?psc=1&ref=ppx_yo2ov_dt_b_product_details) |
